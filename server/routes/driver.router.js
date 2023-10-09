@@ -38,6 +38,15 @@ router.get("/details/:id", (req, res) => {
 });
 
 router.post("/onboard", (req, res, next) => {
+    if (!req.body.application_link ||
+        !req.body.license_link ||
+        !req.body.dot_link ||
+        !req.body.company_policy_link ||
+        !req.body.drug_alcohol_link ||
+        !req.body.dispatcher_id ||
+        !req.body.name){
+        return res.status(400).send("Please provide all the required fields")
+      }
   const queryText = `INSERT INTO "public.driver" (application_link, license_link, dot_link, company_policy_link, drug_alcohol_link, dispatcher_id, name)
     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
 
