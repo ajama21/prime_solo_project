@@ -1,0 +1,46 @@
+.register_page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.group{
+    display: flex;
+    flex-direction: column;
+}
+
+.register_form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 25px;
+
+}
+
+.welcome{
+    text-align: center;
+}
+
+input{
+    height: 35px;
+    border-radius: 5px;
+}
+
+.sign_up{
+    background-color: #1C9EB2;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+}
+
+.group label{
+    text-align: center;
+}
