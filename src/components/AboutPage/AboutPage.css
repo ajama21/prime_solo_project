@@ -1,0 +1,18 @@
+.mission{
+    text-align: center;
+}
+
+.statement{
+    width: 400px;
+    padding: 20px;
+    background-color: rgba(0,0,0, 0.3);
+    font-size: 18px;
+    line-height: 150%;
+    margin-left: 100px;
+}
+
+.about_page{
+    display: flex;
+    justify-content: left !important;
+    color: white;
+}
