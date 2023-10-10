@@ -8,8 +8,6 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
@@ -22,7 +20,9 @@ import Dashboard from '../Dashboard/Dashboard';
 import DriverPage from '../DriverPage/DriverPage';
 import SideMenu from '../Common/SideMenu';
 
+
 import './App.css';
+import Testing from '../Testing/Testing';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +36,6 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
         <Switch>
           <Route
             exact
@@ -62,7 +61,12 @@ function App() {
           >
             <LoginPage />
           </Route>
-
+          <Route
+            exact
+            path="/testing"
+          >
+            <Testing />
+          </Route>
 
           <ProtectedRoute
             exact
@@ -87,7 +91,6 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
       </div>
     </Router>
   );
