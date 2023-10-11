@@ -18,7 +18,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Onboarding from '../Onboarding/Onboarding'
 import Dashboard from '../Dashboard/Dashboard';
 import DriverPage from '../DriverPage/DriverPage';
-import SideMenu from '../Common/SideMenu';
+import NewTruck from '../NewTruck/NewTruck';
 
 
 import './App.css';
@@ -70,7 +70,7 @@ function App() {
 
           <ProtectedRoute
             exact
-            path="/onboarding"
+            path="/dashboard/onboarding"
           >
             <Onboarding />
           </ProtectedRoute>
@@ -82,9 +82,16 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute
             exact
-            path="/driverpage"
+            path="/dashboard/driverpage/:id"
           >
             <DriverPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/dashboard/newtruck"
+          >
+            <NewTruck />
           </ProtectedRoute>
 
           <Route>

@@ -6,7 +6,7 @@ body,
 
 body {
 font-family: 'Roboto', sans-serif;  margin: 0px;
-  background-color: #040404;
+  background-color: white;
 }
 
 img {
@@ -112,10 +112,11 @@ input {
 }
 
 header{
+  background: transparent;
   display: flex;
   justify-content: space-between;
   position: absolute;
-  top: 20px;
+  top: 5px;
   left: 50px;
   right: 50px;
 }
@@ -128,7 +129,7 @@ header{
 .logo{
   font-size: 2rem;
   font-weight: 700;
-  color: white;
+  /* color: #121212; */
 }
 
 a{
@@ -139,4 +140,36 @@ a{
 
 .active{
   color: #28E2FF;
+}
+
+.sideMenu{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  padding-top: 50px;
+  padding-left: 20px;
+}
+
+.sideMenuOptions{
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  width: 300px;
+  gap: 15px;
+
+}
+
+.sideMenuOptions a{
+  color: #121212;
+  background-color: #f0f4f8;
+  padding: 10px 5px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
 }
