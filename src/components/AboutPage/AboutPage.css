@@ -1,5 +1,6 @@
 .mission{
     text-align: center;
+    margin-left: 750px;
 }
 
 .statement{
@@ -8,7 +9,7 @@
     background-color: rgba(0,0,0, 0.3);
     font-size: 18px;
     line-height: 150%;
-    margin-left: 100px;
+    margin-left: 750px;
 }
 
 .about_page{

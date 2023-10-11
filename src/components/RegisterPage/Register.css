@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     color: white;
 }
 
@@ -19,7 +19,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     padding: 30px;
     border-radius: 25px;
-
+    margin-left: 750px;
 }
 
 .welcome{
@@ -43,4 +43,10 @@ input{
 
 .group label{
     text-align: center;
+}
+
+.side_view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

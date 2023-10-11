@@ -1,16 +1,16 @@
 import React from "react";
 import TopNav from "../Common/TopNav";
-import './Register.css'
+import "./Register.css";
 
 function RegisterPage() {
   return (
     <div
       className="container register_page"
-      style={{ backgroundImage: `url('/Freightliner.jpeg')` }}
+      style={{ backgroundImage: `url('/sideviewtruck.jpeg')` }}
     >
       <TopNav />
       <form className="register_form">
-      <h1 className="welcome">Welcome</h1>
+        <h1 className="welcome">Welcome</h1>
         <div className="group">
           <label htmlFor="companyname">Company Name</label>
           <input
