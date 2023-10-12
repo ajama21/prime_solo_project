@@ -1,105 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   HashRouter as Router,
   Redirect,
   Route,
   Switch,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import AboutPage from "../AboutPage/AboutPage";
+import LandingPage from "../LandingPage/LandingPage";
+import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
+import Onboarding from "../Onboarding/Onboarding";
+import Dashboard from "../Dashboard/Dashboard";
+import DriverPage from "../DriverPage/DriverPage";
+import NewTruck from "../NewTruck/NewTruck";
 
-import AboutPage from '../AboutPage/AboutPage';
-import LandingPage from '../LandingPage/LandingPage';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import Onboarding from '../Onboarding/Onboarding'
-import Dashboard from '../Dashboard/Dashboard';
-import DriverPage from '../DriverPage/DriverPage';
-import NewTruck from '../NewTruck/NewTruck';
-
-
-import './App.css';
-import Testing from '../Testing/Testing';
-import ViewTruck from '../ViewTruck/ViewTruck';
+import "./App.css";
+import Testing from "../Testing/Testing";
+import ViewTruck from "../ViewTruck/ViewTruck";
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
   return (
     <Router>
       <div>
         <Switch>
-          <Route
-            exact
-            path="/"
-          >
+          <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route
-            exact
-            path="/about"
-          >
+          <Route exact path="/about">
             <AboutPage />
           </Route>
-          <Route
-            exact
-            path="/register"
-          >
-            <RegisterPage />
+          <Route exact path="/register">
+            {user.id ? <Redirect to="/dashboard" /> : <RegisterPage />}
           </Route>
-          <Route
-            exact
-            path="/login"
-          >
-            <LoginPage />
+          <Route exact path="/login">
+            {user.id ? <Redirect to="/dashboard" /> : <LoginPage />}
           </Route>
-          <Route
-            exact
-            path="/testing"
-          >
+          <Route exact path="/testing">
             <Testing />
           </Route>
 
-          <ProtectedRoute
-            exact
-            path="/dashboard/onboarding"
-          >
-            <Onboarding />
+          <ProtectedRoute exact path="/dashboard/onboarding">
+          {!user.id ? <Redirect to="/login" /> : <Onboarding />}
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path="/dashboard"
-          >
-            <Dashboard />
+          <ProtectedRoute exact path="/dashboard">
+          {!user.id ? <Redirect to="/dashboard" /> : <Dashboard />}
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path="/dashboard/driverpage/:id"
-          >
-            <DriverPage />
+          <ProtectedRoute exact path="/dashboard/driverpage/:id">
+          {!user.id ? <Redirect to="/dashboard" /> : <DriverPage />}
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path="/dashboard/newtruck"
-          >
-            <NewTruck />
+          <ProtectedRoute exact path="/dashboard/newtruck">
+          {!user.id ? <Redirect to="/dashboard" /> : <NewTruck />}
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path="/dashboard/truckpage/:id"
-          >
-            <ViewTruck />
+          <ProtectedRoute exact path="/dashboard/truckpage/:id">
+          {!user.id ? <Redirect to="/dashboard" /> : <ViewTruck />}
           </ProtectedRoute>
 
           <Route>

@@ -5,7 +5,7 @@ import SideMenu from "./SideMenu";
 
 export default function TopNav() {
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   const [showSideMenu, setShowSideMenu] = useState(false)
 
   return (
