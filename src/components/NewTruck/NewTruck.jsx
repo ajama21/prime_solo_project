@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewTruck.css";
 import TopNav from "../Common/TopNav";
+import { useDispatch } from "react-redux";
 
 export default function NewTruck() {
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
+  const [truckNumber, setTruckNumber] = useState("");
+
+  const dispatch = useDispatch();
+
+  const Submit = (e) => {
+    e.preventDefault();
+    console.log("submit button clicked");
+    dispatch({
+      type: "ADD_TRUCK",
+      payload: { make, year, model, truck_number: truckNumber },
+    });
+  };
+
   return (
     <div className="newTruck">
       <TopNav />
@@ -10,15 +27,33 @@ export default function NewTruck() {
         <h1 className="welcome">Add New Truck</h1>
         <div className="group">
           <label htmlFor="make">Make</label>
-          <input type="text" name="make" placeholder="Enter Make" />
+          <input
+            type="text"
+            name="make"
+            placeholder="Enter Make"
+            value={make}
+            onChange={(e) => setMake(e.target.value)}
+          />
         </div>
         <div className="group">
           <label htmlFor="year">Year</label>
-          <input type="number" name="year" placeholder="Enter Year" />
+          <input
+            type="number"
+            name="year"
+            placeholder="Enter Year"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          />
         </div>
         <div className="group">
           <label htmlFor="model">Model</label>
-          <input type="text" name="model" placeholder="Enter Model" />
+          <input
+            type="text"
+            name="model"
+            placeholder="Enter Model"
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+          />
         </div>
         <div className="group">
           <label htmlFor="truck_number">Truck Number</label>
@@ -26,6 +61,8 @@ export default function NewTruck() {
             type="number"
             name="truck_number"
             placeholder="Enter Truck Number"
+            value={truckNumber}
+            onChange={(e) => setTruckNumber(e.target.value)}
           />
         </div>
         <div className="group files">
@@ -37,7 +74,13 @@ export default function NewTruck() {
             accept="image/png, image/jpeg"
           />
         </div>
-        <button className="sign_up">Add New Truck</button>
+        <button
+          className="sign_up"
+          onClick={(e) => Submit(e)}
+          disabled={!make || !year || !model || !truckNumber}
+        >
+          Add New Truck
+        </button>
       </form>
     </div>
   );
