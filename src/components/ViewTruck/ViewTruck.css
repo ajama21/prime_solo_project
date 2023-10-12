@@ -1,0 +1,27 @@
+.truck_info{
+    width: 400px;
+    background-color: #f0f4f8;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    height: max-content;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.truck_page{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.truck_info img {
+    width: 400px;
+    height: 300px;
+    
+}

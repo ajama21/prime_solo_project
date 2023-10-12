@@ -23,6 +23,7 @@ import NewTruck from '../NewTruck/NewTruck';
 
 import './App.css';
 import Testing from '../Testing/Testing';
+import ViewTruck from '../ViewTruck/ViewTruck';
 
 function App() {
   const dispatch = useDispatch();
@@ -92,6 +93,13 @@ function App() {
             path="/dashboard/newtruck"
           >
             <NewTruck />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/dashboard/truckpage/:id"
+          >
+            <ViewTruck />
           </ProtectedRoute>
 
           <Route>

@@ -65,7 +65,7 @@ export default function Dashboard() {
               <tr>
                 <td>{truck.make}</td>
                 <td>{truck.truckNumber}</td>
-                <td><button>View</button> <button>Remove</button></td>
+                <td><button onClick={() => history.push('/dashboard/truckpage/' + truck.id )}>View</button> <button>Remove</button></td>
               </tr>
             ))}
           </tbody>
