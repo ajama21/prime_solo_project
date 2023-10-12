@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TopNav from "../Common/TopNav";
 import "./Register.css";
+import { useDispatch } from "react-redux";
 
 function RegisterPage() {
   const [companyName, setCompanyName] = useState("");
@@ -8,9 +9,15 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
+  const dispatch = useDispatch("");
+
   const Submit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     console.log("submit button clicked");
+    dispatch({
+      type: "REGISTER",
+      payload: { company_name: companyName, username: userName, password, email },
+    });
   };
 
   return (
@@ -69,7 +76,13 @@ function RegisterPage() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button className="sign_up" onClick={(e)=> Submit(e)} disabled={!companyName || !userName || !password || !email}>Sign-Up</button>
+        <button
+          className="sign_up"
+          onClick={(e) => Submit(e)}
+          disabled={!companyName || !userName || !password || !email}
+        >
+          Sign-Up
+        </button>
       </form>
     </div>
   );
