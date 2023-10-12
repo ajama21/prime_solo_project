@@ -8,10 +8,11 @@ const userStrategy = require("../strategies/user.strategy");
 
 const router = express.Router();
 
-router.get("/:id", rejectUnauthenticated, (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
+  console.log(req.user, "WHAAAAAT");
   const query = `SELECT * FROM "public.truck" WHERE "dispatcher_id" = $1`;
   pool
-    .query(query, [req.params.id])
+    .query(query, [req.user.id])
     .then((result) => {
       res.send(result.rows);
     })
@@ -43,13 +44,11 @@ router.post("/", rejectUnauthenticated, (req, res, next) => {
     !req.body.make ||
     !req.body.year ||
     !req.body.model ||
-    !req.body.image_link ||
-    !req.body.truck_number ||
-    !req.params.id
+    !req.body.truck_number
   ) {
     return res.status(400).send("Please provide all the required fields");
   }
-  const queryText = `INSERT INTO "public.truck" (make, year, model, image_link, truck_number, dispatcher_id)
+  const queryText = `INSERT INTO "public.truck" ("make", "year", "model", "image_link", "truck_number", "dispatcher_id")
     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
 
   pool
@@ -57,9 +56,9 @@ router.post("/", rejectUnauthenticated, (req, res, next) => {
       req.body.make,
       req.body.year,
       req.body.model,
-      req.body.image_link,
+      "https://ftl.imgix.net/images/region/en-US/cabs/p4/126-bbc-48-xt.png?auto=format%2Ccompress&fm=jp2%2Cjpg&bg=d7d7d7",
       req.body.truck_number,
-      req.body.dispatcher_id,
+      req.user.id,
     ])
     .then((response) => {
       console.log("truck selected success: ", response.rows[0]);
