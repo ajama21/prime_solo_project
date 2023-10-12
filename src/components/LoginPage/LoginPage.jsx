@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import TopNav from "../Common/TopNav";
+import { useDispatch } from "react-redux";
 
 function LoginPage() {
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const Submit = (e) => {
     e.preventDefault();
     console.log("submit button clicked");
+    dispatch({
+      type: "LOGIN",
+      payload: { username: userName, password },
+    });
   };
 
   return (
