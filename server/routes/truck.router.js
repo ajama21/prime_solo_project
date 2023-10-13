@@ -9,8 +9,11 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  console.log(req.user, "WHAAAAAT");
-  const query = `SELECT * FROM "public.truck" WHERE "dispatcher_id" = $1`;
+  const query = `SELECT "public.truck"."make", "public.driver"."name", "public.truck"."id"
+  FROM "public.truck"
+  JOIN "public.driver_truck" ON "public.driver_truck"."truck_number" = "public.truck"."truck_number"
+  JOIN "public.driver" ON "public.driver_truck"."driver_id" = "public.driver"."id"
+  WHERE "public.driver"."dispatcher_id" = $1;`;
   pool
     .query(query, [req.user.id])
     .then((result) => {

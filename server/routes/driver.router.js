@@ -8,10 +8,12 @@ const userStrategy = require("../strategies/user.strategy");
 
 const router = express.Router();
 
-router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const query = `SELECT * FROM "public.driver" WHERE "dispatcher_id" = $1`;
+router.get("/", rejectUnauthenticated, (req, res) => {
+  const query = `SELECT "public.driver"."name", "public.driver_truck"."truck_number", "public.driver"."id" FROM "public.driver" 
+  JOIN "public.driver_truck" ON "public.driver_truck"."driver_id" = "public.driver"."id"
+  WHERE "dispatcher_id" = $1;`;
   pool
-    .query(query, [req.params.id])
+    .query(query, [req.user.id])
     .then((result) => {
       res.send(result.rows);
     })
@@ -38,15 +40,16 @@ router.get("/details/:id", (req, res) => {
 });
 
 router.post("/onboard", (req, res, next) => {
-    if (!req.body.application_link ||
-        !req.body.license_link ||
-        !req.body.dot_link ||
-        !req.body.company_policy_link ||
-        !req.body.drug_alcohol_link ||
-        !req.body.dispatcher_id ||
-        !req.body.name){
-        return res.status(400).send("Please provide all the required fields")
-      }
+  if (
+    !req.body.application_link ||
+    !req.body.license_link ||
+    !req.body.dot_link ||
+    !req.body.company_policy_link ||
+    !req.body.drug_alcohol_link ||
+    !req.body.name
+  ) {
+    return res.status(400).send("Please provide all the required fields");
+  }
   const queryText = `INSERT INTO "public.driver" (application_link, license_link, dot_link, company_policy_link, drug_alcohol_link, dispatcher_id, name)
     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
 
@@ -57,7 +60,7 @@ router.post("/onboard", (req, res, next) => {
       req.body.dot_link,
       req.body.company_policy_link,
       req.body.drug_alcohol_link,
-      req.body.dispatcher_id,
+      req.user.id,
       req.body.name,
     ])
     .then((response) => {
@@ -104,17 +107,17 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    const query = `DELETE FROM "public.driver" WHERE "id" = $1`;
-    pool
-      .query(query, [req.params.id])
-      .then((result) => {
-        res.send(result.rows);
-      })
-      .catch((err) => {
-        console.log("ERROR: Delete Driver failed", err);
-        res.sendStatus(500);
-      });
-  });
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
+  const query = `DELETE FROM "public.driver" WHERE "id" = $1`;
+  pool
+    .query(query, [req.params.id])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Delete Driver failed", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
