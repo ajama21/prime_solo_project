@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Redirect,
   Route,
   Switch,
@@ -43,31 +43,31 @@ function App() {
             <AboutPage />
           </Route>
           <Route exact path="/register">
-            {user.id ? <Redirect to="/dashboard" /> : <RegisterPage />}
+            {user.id ? <Redirect to="/dashboard?view=drivers" /> : <RegisterPage />}
           </Route>
           <Route exact path="/login">
-            {user.id ? <Redirect to="/dashboard" /> : <LoginPage />}
+            {user.id ? <Redirect to="/dashboard?view=drivers" /> : <LoginPage />}
           </Route>
           <Route exact path="/testing">
             <Testing />
           </Route>
 
           <ProtectedRoute exact path="/dashboard/onboarding">
-          {!user.id ? <Redirect to="/login" /> : <Onboarding />}
+            {!user.id ? <Redirect to="/login" /> : <Onboarding />}
           </ProtectedRoute>
           <ProtectedRoute exact path="/dashboard">
-          {!user.id ? <Redirect to="/dashboard" /> : <Dashboard />}
+            {!user.id ? <Redirect to="/dashboard" /> : <Dashboard />}
           </ProtectedRoute>
           <ProtectedRoute exact path="/dashboard/driverpage/:id">
-          {!user.id ? <Redirect to="/dashboard" /> : <DriverPage />}
+            {!user.id ? <Redirect to="/dashboard?view=drivers" /> : <DriverPage />}
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/dashboard/newtruck">
-          {!user.id ? <Redirect to="/dashboard" /> : <NewTruck />}
+            {!user.id ? <Redirect to="/dashboard?view=drivers" /> : <NewTruck />}
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/dashboard/truckpage/:id">
-          {!user.id ? <Redirect to="/dashboard" /> : <ViewTruck />}
+            {!user.id ? <Redirect to="/dashboard?view=drivers" /> : <ViewTruck />}
           </ProtectedRoute>
 
           <Route>

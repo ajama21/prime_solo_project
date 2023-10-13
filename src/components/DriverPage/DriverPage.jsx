@@ -6,8 +6,8 @@ import TopNav from "../Common/TopNav";
 export default function DriverPage() {
   const params = useParams();
   const [showPopUp, setShowPopUp] = useState("");
-  console.log(params.id);
-
+  
+  
   return (
     <>
       <TopNav />

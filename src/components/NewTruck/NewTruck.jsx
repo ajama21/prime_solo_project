@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import "./NewTruck.css";
 import TopNav from "../Common/TopNav";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function NewTruck() {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
   const [truckNumber, setTruckNumber] = useState("");
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -18,6 +20,7 @@ export default function NewTruck() {
       type: "ADD_TRUCK",
       payload: { make, year, model, truck_number: truckNumber },
     });
+    history.push('/dashboard?view=trucks')
   };
 
   return (
