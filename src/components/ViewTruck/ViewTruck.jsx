@@ -1,8 +1,20 @@
 import React from 'react'
 import './ViewTruck.css'
 import TopNav from '../Common/TopNav'
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 export default function ViewTruck() {
+
+  const dispatch = useDispatch();
+
+  const truckDetails = useSelector((store) => store.truck);
+  console.log(truckDetails, 'WHAAAAT');
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_TRUCK_DETAILS" });
+  }, [dispatch]);
+
   return (
     <div className='truck_page'>
         <TopNav />

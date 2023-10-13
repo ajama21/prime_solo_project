@@ -1,9 +1,23 @@
-const truckreducer = (state = {}, action) => {
+import { combineReducers } from 'redux';
+
+
+const truckreducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_TRUCKS':
       return action.payload;
     case 'UNSET_USER':
-      return {};
+      return [];
+    default:
+      return state;
+  }
+};
+
+const truckdetailreducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_TRUCK_DETAILS':
+      return action.payload;
+    case 'UNSET_USER':
+      return [];
     default:
       return state;
   }
@@ -11,4 +25,7 @@ const truckreducer = (state = {}, action) => {
 
 // user will be on the redux state at:
 // state.user
-export default truckreducer;
+export default combineReducers({
+  truckreducer,
+  truckdetailreducer,
+});
