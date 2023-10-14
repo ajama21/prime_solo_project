@@ -14,7 +14,6 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const trucks = useSelector((store) => store.trucks);
-  console.log(trucks);
   const drivers = useSelector((store) => store.drivers);
 
 

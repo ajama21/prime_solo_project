@@ -12,7 +12,6 @@ export default function DriverPage() {
 
   const dispatch = useDispatch();
   const driverDetails = useSelector((store) => store.driverdetails);
-  console.log(driverDetails);
 
   useEffect(() => {
     dispatch({ type: "FETCH_DRIVER_DETAILS", payload: params.id });

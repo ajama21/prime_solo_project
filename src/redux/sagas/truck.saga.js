@@ -62,7 +62,6 @@ function* fetchTruckDetails(action) {
 function* trucksaga() {
   yield takeLatest('ADD_TRUCK', addTruck);
   yield takeLatest('FETCH_TRUCKS', fetchAllTrucks );
-  // add new type 'FETCH_TRUCK_DETAILS'
   yield takeLatest('FETCH_TRUCK_DETAILS', fetchTruckDetails);
   yield takeLatest('FETCH_UNASSIGNED_TRUCKS', fetchUnassginedTrucks);
 

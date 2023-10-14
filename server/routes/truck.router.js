@@ -41,7 +41,7 @@ router.get("/unassigned", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/details/:id", (req, res) => {
-  const query = `SELECT "make", "year", "model", "image_link", "public.driver".name, "public.truck".id AS "truck_id", "public.truck"."truck_number"
+  const query = `SELECT "make", "year", "model", "truck_image_link", "public.driver".name, "public.truck".id AS "truck_id", "public.truck"."truck_number"
     FROM "public.truck" 
     JOIN "public.driver_truck" ON "public.truck".truck_number = "public.driver_truck".truck_number
     JOIN "public.driver" ON "public.driver".id = "public.driver_truck".driver_id
