@@ -24,7 +24,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/details/:id", (req, res) => {
-  const query = `SELECT "public.driver".name, "public.truck".truck_number, "public.driver".application_link, "public.driver".company_policy_link, "public.driver".drug_alcohol_link, "public.driver".license_link, "public.driver".dot_link FROM "public.driver" 
+  const query = `SELECT "public.driver".name, "public.truck".truck_number, "public.driver".application_link, "public.driver".company_policy_link, "public.driver".drug_alcohol_link, "public.driver".license_link, "public.driver".dot_link, "public.driver"."image_link" FROM "public.driver" 
   JOIN "public.driver_truck" ON "public.driver".id = "public.driver_truck".driver_id
   JOIN "public.truck" ON "public.truck".truck_number = "public.driver_truck".truck_number
   WHERE "public.driver".id = $1;`;
@@ -50,8 +50,8 @@ router.post("/onboard", (req, res, next) => {
   ) {
     return res.status(400).send("Please provide all the required fields");
   }
-  const queryText = `INSERT INTO "public.driver" (application_link, license_link, dot_link, company_policy_link, drug_alcohol_link, dispatcher_id, name)
-    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
+  const queryText = `INSERT INTO "public.driver" (application_link, license_link, dot_link, company_policy_link, drug_alcohol_link, dispatcher_id, name, image_link)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`;
 
   pool
     .query(queryText, [
@@ -62,6 +62,7 @@ router.post("/onboard", (req, res, next) => {
       req.body.drug_alcohol_link,
       req.user.id,
       req.body.name,
+      "https://www.enverus.com/wp-content/uploads/2023/01/default-user-avatar.png"
     ])
     .then((response) => {
       console.log("Driver created: ", response.rows[0]);
