@@ -3,28 +3,28 @@ import './ViewTruck.css'
 import TopNav from '../Common/TopNav'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function ViewTruck() {
-
+  const params = useParams();
   const dispatch = useDispatch();
-
-  const truckDetails = useSelector((store) => store.truck);
-  console.log(truckDetails, 'WHAAAAT');
+  const truckdetails = useSelector((store) => store.truckdetails);
+  console.log(truckdetails);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_TRUCK_DETAILS" });
+    dispatch({ type: "FETCH_TRUCK_DETAILS", payload: params.id});
   }, [dispatch]);
 
   return (
     <div className='truck_page'>
         <TopNav />
         <div className='truck_info'>
-            <img src="https://ftl.imgix.net/images/region/en-US/cabs/p4/126-bbc-48-xt.png?auto=format%2Ccompress&fm=jp2%2Cjpg&bg=d7d7d7" alt="" />
-            <span>Make</span>
-            <span>Yeaer</span>
-            <span>Model</span>
-            <span>Truck Number</span>
-            <span>Assigne to: </span>
+            <img src={truckdetails?.image_link} alt="" />
+            <span>Make {truckdetails?.make}</span>
+            <span>Year {truckdetails?.year}</span>
+            <span>Model {truckdetails?.model}</span>
+            <span>Truck Number {truckdetails?.truck_number}</span>
+            <span>Assigne to: {truckdetails?.name} </span>
         </div>
     </div>
   )

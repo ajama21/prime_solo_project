@@ -3,6 +3,9 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import trucks from './truck.reducer';
 import drivers from './driver.reducer';
+import truckdetails from './truckdetails.reducer';
+import driverdetails from './driverdetails.router';
+import unassignedtrucks from './unassignedtrucks.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -15,7 +18,9 @@ const rootReducer = combineReducers({
   user,
   trucks,
   drivers,
-   // will have an id and username if someone is logged in
+  truckdetails,
+  driverdetails,
+  unassignedtrucks
 });
 
 export default rootReducer;
