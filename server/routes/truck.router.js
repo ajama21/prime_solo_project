@@ -9,11 +9,9 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const query = `SELECT "public.truck"."make", "public.driver"."name", "public.truck"."id"
+  const query = `SELECT * 
   FROM "public.truck"
-  JOIN "public.driver_truck" ON "public.driver_truck"."truck_number" = "public.truck"."truck_number"
-  JOIN "public.driver" ON "public.driver_truck"."driver_id" = "public.driver"."id"
-  WHERE "public.driver"."dispatcher_id" = $1;`;
+  WHERE "dispatcher_id" = $1;`;
   pool
     .query(query, [req.user.id])
     .then((result) => {
@@ -25,8 +23,25 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/unassigned", rejectUnauthenticated, (req, res) => {
+  const query = `SELECT *
+  FROM "public.truck"
+  LEFT JOIN "public.driver_truck" ON "public.truck"."truck_number" = "public.driver_truck"."truck_number"
+  WHERE "public.driver_truck"."truck_number" IS NULL;
+  `;
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all truck details failed", err);
+      res.sendStatus(500);
+    });
+});
+
 router.get("/details/:id", (req, res) => {
-  const query = `SELECT "make", "year", "model", "image_link", "public.driver".name, "public.truck".id AS "truck_id"
+  const query = `SELECT "make", "year", "model", "image_link", "public.driver".name, "public.truck".id AS "truck_id", "public.truck"."truck_number"
     FROM "public.truck" 
     JOIN "public.driver_truck" ON "public.truck".truck_number = "public.driver_truck".truck_number
     JOIN "public.driver" ON "public.driver".id = "public.driver_truck".driver_id
