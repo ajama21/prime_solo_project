@@ -14,6 +14,7 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const trucks = useSelector((store) => store.trucks);
+  console.log(trucks);
   const drivers = useSelector((store) => store.drivers);
 
 
@@ -58,7 +59,7 @@ export default function Dashboard() {
         <table>
           <thead>
             <th>{search.split('=')[1]=== "trucks" ? "Make" : "Driver Name"}</th>
-            <th>{search.split('=')[1]=== "trucks" ? "Driver Name" : "Truck Number"}</th>
+            <th>{search.split('=')[1]=== "trucks" ? "Truck Number" : "Truck Number"}</th>
             <th>Actions</th>
           </thead>
           <tbody>
@@ -80,10 +81,10 @@ export default function Dashboard() {
                 </tr>
               ))}
             {search.split('=')[1] === "trucks" &&
-              trucks.map((truck) => (
-                <tr>
+              trucks?.map((truck) => (
+                <tr key={truck.id}>
                   <td>{truck.make}</td>
-                  <td>{truck.name}</td>
+                  <td>{truck.truck_number}</td>
                   <td>
                     <button
                       onClick={() =>
