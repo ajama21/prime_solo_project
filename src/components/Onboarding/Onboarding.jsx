@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TopNav from "../Common/TopNav";
 import "./Onboarding.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 export default function Onboarding() {
   const dispatch = useDispatch();
@@ -10,12 +10,16 @@ export default function Onboarding() {
   const [name, setName] = useState("");
   const history = useHistory();
 
-  const trucks = useSelector((store) => store.trucks);
-  console.log(trucks);
+  const trucks = useSelector((store) => store.unassignedtrucks);
+  console.log(trucks, "trucks in SELECT DROP DOWN");
 
   useEffect(() => {
-    dispatch({ type: "FETCH_TRUCKS" });
+    dispatch({ type: "FETCH_UNASSIGNED_TRUCKS" });
   }, []);
+
+  useEffect(() => {
+    setTruckNumber(trucks[0]?.truck_number)
+  }, [trucks]);
 
   const addNewDriver = (e) => {
     e.preventDefault();

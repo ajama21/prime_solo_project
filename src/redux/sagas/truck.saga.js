@@ -30,18 +30,32 @@ function* fetchAllTrucks() {
   }
 }
 
-// create genereator for get truck details it should take truck id in the payload
-function* fetchTruckDetails(){
+function* fetchUnassginedTrucks() {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
-    const response = yield axios.get(`/api/details/ + id`, config);
-    const truckId = response.data.id;
-    yield put({ type: 'SET_TRUCK_DETAILS', payload: truckId });
+    const response = yield axios.get('/api/truck/unassigned', config);
+
+    yield put({ type: 'SET_UNASSIGNED_TRUCKS', payload: response.data });
   } catch (error) {
-    console.log('User get request failed', error);
+    console.log('GET truck request failed', error);
+  }
+}
+
+// create genereator for get truck details it should take truck id in the payload
+function* fetchTruckDetails(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    const response = yield axios.get('/api/truck/details/' + action.payload , config);
+
+    yield put({ type: 'SET_CURRENT_TRUCK', payload: response.data[0] });
+  } catch (error) {
+    console.log('GET truck details request failed', error);
   }
 }
 
@@ -49,7 +63,9 @@ function* trucksaga() {
   yield takeLatest('ADD_TRUCK', addTruck);
   yield takeLatest('FETCH_TRUCKS', fetchAllTrucks );
   // add new type 'FETCH_TRUCK_DETAILS'
-  yield takeLatest('FETCH_TRUCK_DETAILS', fetchTruckDetails );
+  yield takeLatest('FETCH_TRUCK_DETAILS', fetchTruckDetails);
+  yield takeLatest('FETCH_UNASSIGNED_TRUCKS', fetchUnassginedTrucks);
+
 }
 
 export default trucksaga;
