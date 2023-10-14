@@ -16,7 +16,7 @@ function* addDriver(action) {
   }
 }
 
-function* getAllDrivers() {
+function* fetchAllDrivers() {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
@@ -30,9 +30,25 @@ function* getAllDrivers() {
   }
 }
 
+function* fetchDriverDetails(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json'},
+      withCredentials: true,
+    };
+    const response = yield axios.get('/api/driver/details/' + action.payload , config);
+
+    yield put({ type: 'SET_CURRENT_DRIVER', payload: response.data[0] });
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
 function* driversaga() {
   yield takeLatest('ADD_DRIVER', addDriver);
-  yield takeLatest('FETCH_DRIVERS', getAllDrivers );
+  yield takeLatest('FETCH_DRIVERS', fetchAllDrivers );
+  yield takeLatest('FETCH_DRIVER_DETAILS', fetchDriverDetails );
+
 
 }
 
