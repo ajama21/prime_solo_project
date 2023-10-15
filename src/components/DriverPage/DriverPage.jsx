@@ -5,10 +5,13 @@ import TopNav from "../Common/TopNav";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import driverReducer from "../../redux/reducers/driver.reducer";
+import { useHistory } from "react-router-dom";
 
 export default function DriverPage() {
   const params = useParams();
   const [showPopUp, setShowPopUp] = useState("");
+  const history = useHistory();
+
 
   const dispatch = useDispatch();
   const driverDetails = useSelector((store) => store.driverdetails);
@@ -78,6 +81,9 @@ export default function DriverPage() {
             </span>
           </div>
         </div>
+        <button className="sign_up update_button" onClick={() => history.push('/dashboard/onboarding?edit=' + params.id)}>
+          Update Driver
+        </button>
         {showPopUp.length > 0 && (
           <ImagePopUP imageLink={showPopUp} close={() => setShowPopUp("")} />
         )}
