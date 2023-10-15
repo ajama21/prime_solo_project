@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import TopNav from "../Common/TopNav";
 import "./Onboarding.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function Onboarding() {
   const dispatch = useDispatch();
-  const [truckNumber, setTruckNumber] = useState('');
+  const [truckNumber, setTruckNumber] = useState("");
   const [name, setName] = useState("");
   const history = useHistory();
+  const { search } = useLocation();
+  console.log(search, "this is what we are conosle logig");
 
   const trucks = useSelector((store) => store.unassignedtrucks);
   console.log(trucks, "trucks in SELECT DROP DOWN");
@@ -18,8 +20,41 @@ export default function Onboarding() {
   }, []);
 
   useEffect(() => {
-    setTruckNumber(trucks[0]?.truck_number)
+    setTruckNumber(trucks[0]?.truck_number);
   }, [trucks]);
+
+  const driverDetails = useSelector((store) => store.driverdetails);
+  console.log('SMOKE', driverDetails);
+  
+  useEffect(() => {
+    if (search && driverDetails) {
+      setName(driverDetails.name)
+      setTruckNumber(driverDetails.truck_number)
+    }
+  }, [driverDetails]);
+
+  useEffect(() => {
+    if (search) {
+      dispatch({ type: "FETCH_DRIVER_DETAILS", payload: search.split("=")[1] });
+    }
+  }, [dispatch]);
+
+  const updateDriver = (e) => {
+    e.preventDefault();
+    const updatedDriver = {
+      application_link: driverDetails.application_link,
+      license_link: driverDetails.license_link,
+      dot_link: driverDetails.dot_link,
+      company_policy_link: driverDetails.company_policy_link,
+      drug_alcohol_link: driverDetails.drug_alcohol_link,
+      name,
+      truck_number: truckNumber,
+      id: search.split("=")[1]
+    }
+    console.log(updatedDriver,'UPDAAAAATED DRIVER');
+    dispatch({ type: "UPDATE_DRIVER_DETAILS", payload: updatedDriver });
+    history.goBack()
+  }
 
   const addNewDriver = (e) => {
     e.preventDefault();
@@ -119,8 +154,12 @@ export default function Onboarding() {
             </select>
           )}
         </div>
-        <button className="sign_up" onClick={(e) => addNewDriver(e)} disabled={!truckNumber || !name}>
-          Onboard
+        <button
+          className="sign_up"
+          onClick={(e) => (search ? updateDriver(e) : addNewDriver(e))}
+          disabled={!truckNumber || !name}
+        >
+          {search ? "Update" : "Onboard"}
         </button>
       </form>
     </div>
