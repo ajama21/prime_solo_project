@@ -62,7 +62,7 @@ router.post("/onboard", (req, res, next) => {
       req.body.drug_alcohol_link,
       req.user.id,
       req.body.name,
-      "https://www.enverus.com/wp-content/uploads/2023/01/default-user-avatar.png"
+      "https://www.enverus.com/wp-content/uploads/2023/01/default-user-avatar.png",
     ])
     .then((response) => {
       console.log("Driver created: ", response.rows[0]);
@@ -86,9 +86,7 @@ router.post("/onboard", (req, res, next) => {
 });
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const query = `UPDATE "public.driver"
-    SET "application_link"=$1, "license_link"=$2, "dot_link"=$3, "company_policy_link"=$4, "drug_alcohol_link"=$5, "name"=$6
-    WHERE "id"=$7; `;
+  const query = `UPDATE "public.driver" SET "application_link" = $1, "license_link" = $2, "dot_link" = $3, "company_policy_link" = $4,"drug_alcohol_link" = $5, "name" = $6 WHERE "id" = $7;`;
   pool
     .query(query, [
       req.body.application_link,
@@ -100,7 +98,19 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       req.params.id,
     ])
     .then((result) => {
-      res.send(result.rows);
+      const updateJoinQuery = `
+      UPDATE "public.driver_truck"
+      SET "truck_number" = $1
+      WHERE "driver_id" = $2;`;
+      pool
+        .query(updateJoinQuery, [req.body.truck_number, req.params.id])
+        .then((joinResult) => {
+          res.send(joinResult.rows);
+        })
+        .catch((err) => {
+          console.log("ERROR: Update driver details failed", err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.log("ERROR: Update driver details failed", err);
