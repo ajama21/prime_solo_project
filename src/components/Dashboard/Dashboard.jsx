@@ -10,6 +10,7 @@ import { useEffect } from "react";
 export default function Dashboard() {
   const history = useHistory();
   const { search } = useLocation();
+  const [deleteTruck, setDeleteTruck] = useState();
 
   const dispatch = useDispatch();
 
@@ -75,7 +76,7 @@ export default function Dashboard() {
                     >
                       View
                     </button>{" "}
-                    <button>Remove</button>
+                    <button onClick={()=> dispatch({type: 'DELETE_DRIVER', payload: driver?.id })}>Remove</button>
                   </td>
                 </tr>
               ))}
@@ -92,7 +93,7 @@ export default function Dashboard() {
                     >
                       View
                     </button>{" "}
-                    <button>Remove</button>
+                    <button onClick={()=> dispatch({type: 'DELETE_TRUCK', payload: truck?.truck_number })}>Remove</button>
                   </td>
                 </tr>
               ))}
