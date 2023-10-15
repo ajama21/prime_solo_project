@@ -2,7 +2,7 @@ const driverReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_DRIVERS':
       return action.payload;
-    case 'UNSET_USER':
+    case 'UNSET_DRIVER':
       return [];
     default:
       return state;

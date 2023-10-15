@@ -2,6 +2,8 @@ const truckdetailsreducer = (state = null, action) => {
   switch (action.type) {
     case 'SET_CURRENT_TRUCK':
       return action.payload;
+      case 'UNSET_CURRENT_TRUCK':
+        return [];
     default:
       return state;
   }

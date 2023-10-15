@@ -59,12 +59,41 @@ function* fetchTruckDetails(action) {
   }
 }
 
+function* updateTruckDetails(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json'},
+      withCredentials: true,
+    };
+    const response = yield axios.put('/api/truck' + action.payload.id, action.payload, config);
+
+    yield put({ type: 'FETCH_TRUCK_DETAILS', payload: action.payload.id });
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
+function* deleteTruck(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json'},
+      withCredentials: true,
+    };
+    const response = yield axios.delete('/api/truck/' + action.payload, config);
+
+    yield put({ type: 'FETCH_TRUCKS'});
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
 function* trucksaga() {
   yield takeLatest('ADD_TRUCK', addTruck);
   yield takeLatest('FETCH_TRUCKS', fetchAllTrucks );
   yield takeLatest('FETCH_TRUCK_DETAILS', fetchTruckDetails);
   yield takeLatest('FETCH_UNASSIGNED_TRUCKS', fetchUnassginedTrucks);
-
+  yield takeLatest('UPDATE_TRUCK_DETAILS', updateTruckDetails);
+  yield takeLatest('DELETE_TRUCK', deleteTruck);
 }
 
 export default trucksaga;
