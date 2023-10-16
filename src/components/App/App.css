@@ -151,17 +151,20 @@ a{
   display: flex;
   padding-top: 50px;
   padding-left: 20px;
+  z-index: 60;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1px);
 }
 
 .sideMenuOptions{
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   height: max-content;
   width: 300px;
   gap: 15px;
-
+  border-radius: 15px;
 }
 
 .sideMenuOptions a{

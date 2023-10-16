@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import SideMenu from "./SideMenu";
+import { useSelector } from "react-redux";
 
 export default function TopNav() {
   const location = useLocation();
   // console.log(location.pathname);
   const [showSideMenu, setShowSideMenu] = useState(false)
+  const user = useSelector((store) => store.user);
+
 
   return (
     <header>
@@ -35,7 +38,7 @@ export default function TopNav() {
           </Link>
         </div>
       )}
-      {location.pathname.includes('dashboard') && (
+      {location.pathname.includes('dashboard') && user && (
         <div className="topLinks">
           <svg onClick={() => setShowSideMenu(true)}
             xmlns="http://www.w3.org/2000/svg"
