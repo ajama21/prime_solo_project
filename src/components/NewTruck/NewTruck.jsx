@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./NewTruck.css";
 import TopNav from "../Common/TopNav";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function NewTruck() {
   const [make, setMake] = useState("");
@@ -10,10 +10,45 @@ export default function NewTruck() {
   const [year, setYear] = useState("");
   const [truckNumber, setTruckNumber] = useState("");
   const history = useHistory();
+  const { search } = useLocation();
+
 
   const dispatch = useDispatch();
 
-  const Submit = (e) => {
+  const truckDetails = useSelector((store) => store.truckdetails);
+
+  useEffect(() => {
+    if (search && truckDetails) {
+      setMake(truckDetails.make)
+      setModel(truckDetails.model)
+      setYear(truckDetails.year)
+      setTruckNumber(truckDetails.truck_number)
+    }
+  }, [truckDetails, search]);
+
+  const updateTruck = (e) => {
+    e.preventDefault();
+    const updatedTruck = {
+      make,
+      year,
+      model,
+      truck_image_link: truckDetails.truck_image_link,
+      truck_number: truckNumber,
+      id: search.split("=")[1]
+    }
+    console.log(updatedTruck,'UPDAAAAATED DRIVER');
+    dispatch({ type: "UPDATE_TRUCK_DETAILS", payload: updatedTruck });
+    history.goBack()
+  }
+
+  useEffect(() => {
+    if (search) {
+      dispatch({ type: "FETCH_TRUCK_DETAILS", payload: search.split("=")[1] });
+    }
+  }, [dispatch]);
+
+
+  const submit = (e) => {
     e.preventDefault();
     console.log("submit button clicked");
     dispatch({
@@ -79,10 +114,10 @@ export default function NewTruck() {
         </div>
         <button
           className="sign_up"
-          onClick={(e) => Submit(e)}
+          onClick={(e) => (search ? updateTruck(e) : submit(e))}
           disabled={!make || !year || !model || !truckNumber}
         >
-          Add New Truck
+          {search ? "Update Truck" : "Add New Truck"}
         </button>
       </form>
     </div>

@@ -3,13 +3,14 @@ import "./ViewTruck.css";
 import TopNav from "../Common/TopNav";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 export default function ViewTruck() {
   const params = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const truckDetails = useSelector((store) => store.truckdetails);
-  console.log(truckDetails);
 
   useEffect(() => {
     dispatch({ type: "FETCH_TRUCK_DETAILS", payload: params.id });
@@ -27,11 +28,14 @@ export default function ViewTruck() {
           }
           alt=""
         />
-        <span>Make {truckDetails?.make}</span>
-        <span>Year {truckDetails?.year}</span>
-        <span>Model {truckDetails?.model}</span>
-        <span>Truck Number {truckDetails?.truck_number}</span>
-        <span>Assigne to: {truckDetails?.name} </span>
+        <span>Make: {truckDetails?.make}</span>
+        <span>Year: {truckDetails?.year}</span>
+        <span>Model: {truckDetails?.model}</span>
+        <span>Truck Number: {truckDetails?.truck_number}</span>
+        <span>Assigned to: {truckDetails?.name} </span>
+        <button className="sign_up" onClick={() => history.push('/dashboard/newtruck?edit=' + params.id)}>
+          Update Truck
+        </button>
       </div>
     </div>
   );

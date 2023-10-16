@@ -65,7 +65,7 @@ function* updateTruckDetails(action) {
       headers: { 'Content-Type': 'application/json'},
       withCredentials: true,
     };
-    const response = yield axios.put('/api/truck' + action.payload.id, action.payload, config);
+    const response = yield axios.put('/api/truck/' + action.payload.id, action.payload, config);
 
     yield put({ type: 'FETCH_TRUCK_DETAILS', payload: action.payload.id });
   } catch (error) {

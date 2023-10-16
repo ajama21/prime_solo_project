@@ -41,11 +41,25 @@ router.get("/unassigned", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/details/:id", (req, res) => {
-  const query = `SELECT "make", "year", "model", "truck_image_link", "public.driver".name, "public.truck".id AS "truck_id", "public.truck"."truck_number"
-    FROM "public.truck" 
-    JOIN "public.driver_truck" ON "public.truck".truck_number = "public.driver_truck".truck_number
-    JOIN "public.driver" ON "public.driver".id = "public.driver_truck".driver_id
-    WHERE "public.truck".id = $1;`;
+  const query = `SELECT 
+  "public.truck"."make", 
+  "public.truck"."year", 
+  "public.truck"."model", 
+  "public.truck"."truck_image_link", 
+  "public.driver"."name", 
+  "public.truck"."id" AS "truck_id", 
+  "public.truck"."truck_number"
+FROM 
+  "public.truck" 
+LEFT JOIN 
+  "public.driver_truck" 
+  ON "public.truck"."truck_number" = "public.driver_truck"."truck_number"
+LEFT JOIN 
+  "public.driver" 
+  ON "public.driver_truck"."driver_id" = "public.driver"."id"
+WHERE 
+  "public.truck"."id" = $1;
+`;
   pool
     .query(query, [req.params.id])
     .then((result) => {
@@ -66,7 +80,7 @@ router.post("/", rejectUnauthenticated, (req, res, next) => {
   ) {
     return res.status(400).send("Please provide all the required fields");
   }
-  const queryText = `INSERT INTO "public.truck" ("make", "year", "model", "image_link", "truck_number", "dispatcher_id")
+  const queryText = `INSERT INTO "public.truck" ("make", "year", "model", "truck_image_link", "truck_number", "dispatcher_id")
     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
 
   pool
@@ -90,14 +104,14 @@ router.post("/", rejectUnauthenticated, (req, res, next) => {
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const query = `UPDATE "public.truck"
-    SET "make"=$1, "year"=$2, "model"=$3, "image_link"=$4, "truck_number"=$5
+    SET "make"=$1, "year"=$2, "model"=$3, "truck_image_link"=$4, "truck_number"=$5
     WHERE "id"=$6; `;
   pool
     .query(query, [
       req.body.make,
       req.body.year,
       req.body.model,
-      req.body.image_link,
+      req.body.truck_image_link,
       req.body.truck_number,
       req.params.id,
     ])

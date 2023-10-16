@@ -11,6 +11,7 @@
     align-items: center;
     text-align: center;
     margin: auto;
+    padding-bottom: 50px;
 }
 
 .truck_page{
@@ -24,4 +25,9 @@
     width: 400px;
     height: 300px;
     
+}
+
+.update_truck{
+    bottom: 0;
+
 }
