@@ -14,7 +14,7 @@ export default function TopNav() {
   return (
     <header>
       <Link to="/">
-        <span className="logo" style={{color: !location.pathname.includes('dashboard') ? 'white' : 'black'}}>FLEET-TRACKER</span>
+        <img src="/192x192.png" alt="" height={60} width={60} className="image_logo"/>
       </Link>
       {!location.pathname.includes('dashboard') && (
         <div className="topLinks">

@@ -119,6 +119,8 @@ header{
   top: 5px;
   left: 50px;
   right: 50px;
+  z-index: 20;
+  align-items: center;
 }
 
 .topLinks{
@@ -136,6 +138,12 @@ a{
   color: white;
   font-weight: 600;
   font-size: 18px;
+  text-decoration: none;
+  transition: all ease-in 0.3s;
+}
+
+a:hover{
+  color: #28E2FF;
 }
 
 .active{
@@ -175,4 +183,16 @@ a{
   text-decoration: none;
   text-align: center;
   font-weight: 500;
+}
+
+.image_logo{
+  border-radius: 50%;
+
+}
+
+.signout{
+  margin: 0 auto;
+  width: 100%;
+  color: white;
+  background-color: #008183;
 }

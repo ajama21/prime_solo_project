@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: flex-start;
     color: white;
+    align-items: center;
 }
 
 .group{
@@ -16,10 +17,10 @@
     flex-direction: column;
     gap: 20px;
     width: 400px;
-    background-color: rgba(0, 0, 0, 0.5);
     padding: 30px;
     border-radius: 25px;
-    margin-left: 750px;
+    position: relative;
+    z-index: 20;
 }
 
 .welcome{
@@ -29,6 +30,20 @@
 input, select{
     height: 35px;
     border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 1px solid white;
+    transition: all ease-in 0.3s;
+    padding-left: 10px;
+}
+
+input:focus, select:focus{
+    border: 1.5px solid white;
+    outline: 0;
+}
+
+input::placeholder{
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .sign_up{
@@ -39,6 +54,7 @@ input, select{
     border-radius: 15px;
     border: none;
     font-size: 18px;
+    padding: 0 30px;
 }
 
 .group label{

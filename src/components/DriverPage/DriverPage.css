@@ -48,6 +48,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     gap: 30px;
+
 }
 
 .driver_documents_images img{
@@ -65,11 +66,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
 }
 
 .image_pop_up img{
     width: 80vw;
-    height: 80vh;
+    height: 60vh;
     border-radius: 50px;
     background-size: contain;
 }
@@ -83,7 +86,7 @@
 }
 
 .driver_documents_images span{
-    padding: 5px;
+    padding: 10px 5px;
     border-radius: 5px;
     transition: all ease-in 0.21s;
     cursor: pointer;
@@ -101,8 +104,8 @@
     border-radius: 50%;
     background-color: #1C9EB2;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -30px;
+    right: -30px;
     display: flex;
     align-items: center;
     justify-content: center;

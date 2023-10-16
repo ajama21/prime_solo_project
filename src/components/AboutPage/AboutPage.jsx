@@ -6,9 +6,10 @@ function AboutPage() {
   return (
     <div
       className="container about_page"
-      style={{ backgroundImage: `url('/Freightliner.jpeg')` }}
+      style={{ backgroundImage: `url('https://tfltruck.com/wp-content/uploads/2021/02/2022-freightliner-eCascadia-driving.jpeg')` }}
     >
       <div>
+      <div className="overlay"></div>
         <TopNav />
         <h1 className="mission">OUR MISSION</h1>
         <p className="statement">

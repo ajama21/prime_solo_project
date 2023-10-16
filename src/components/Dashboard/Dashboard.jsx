@@ -69,14 +69,14 @@ export default function Dashboard() {
                   <td>{driver.name}</td>
                   <td>{driver.truck_number}</td>
                   <td>
-                    <button
+                    <button 
                       onClick={() =>
                         history.push("/dashboard/driverpage/" + driver.id)
-                      }
+                      } className="table_button_view"
                     >
                       View
-                    </button>{" "}
-                    <button onClick={()=> dispatch({type: 'DELETE_DRIVER', payload: driver?.id })}>Remove</button>
+                    </button>
+                    <button onClick={()=> dispatch({type: 'DELETE_DRIVER', payload: driver?.id })} className="table_button_delete">Remove</button>
                   </td>
                 </tr>
               ))}
@@ -86,14 +86,14 @@ export default function Dashboard() {
                   <td>{truck.make}</td>
                   <td>{truck.truck_number}</td>
                   <td>
-                    <button
+                    <button className="table_button_view"
                       onClick={() =>
                         history.push("/dashboard/truckpage/" + truck.id)
                       }
                     >
                       View
-                    </button>{" "}
-                    <button onClick={()=> dispatch({type: 'DELETE_TRUCK', payload: truck?.truck_number })}>Remove</button>
+                    </button>
+                    <button onClick={()=> dispatch({type: 'DELETE_TRUCK', payload: truck?.truck_number })} className="table_button_delete">Remove</button>
                   </td>
                 </tr>
               ))}

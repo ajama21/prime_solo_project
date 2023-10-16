@@ -29,3 +29,13 @@
 .files label{
     height: max-content ;
 }
+
+.dashboard_input{
+    background-color: white !important;
+    color: #121212 !important;
+
+}
+
+.dashboard_input::placeholder{
+    color: #404040 !important;
+}

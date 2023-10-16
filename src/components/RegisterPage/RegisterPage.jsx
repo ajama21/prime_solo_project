@@ -23,9 +23,10 @@ function RegisterPage() {
   return (
     <div
       className="container register_page"
-      style={{ backgroundImage: `url('/sideviewtruck.jpeg')` }}
+      style={{ backgroundImage: `url('https://tfltruck.com/wp-content/uploads/2021/02/2022-freightliner-eCascadia-driving.jpeg')` }}
     >
       <TopNav />
+      <div className="overlay"></div>
       <form className="register_form">
         <h1 className="welcome">Welcome</h1>
         <div className="group">

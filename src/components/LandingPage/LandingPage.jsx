@@ -5,14 +5,16 @@ import { Link } from "react-router-dom";
 
 function LandingPage() {
   return (
+
     <div
       className="container"
-      style={{ backgroundImage: `url('/Freightliner.jpeg')` }}
+      style={{ backgroundImage: `url('https://tfltruck.com/wp-content/uploads/2021/02/2022-freightliner-eCascadia-driving.jpeg')` }}
     >
+      <div className="overlay"></div>
       <TopNav />
       <div className="landingPage_image">
         <div className="comment">
-          <p>“Navigate with Confidence. Fleet-Tracker in Your Hands!”</p>
+          <h1>“Navigate with Confidence. Fleet-Tracker in Your Hands!”</h1>
         </div>
         <div className="hero_buttons">
           <Link className="hero_button register" to="/register">

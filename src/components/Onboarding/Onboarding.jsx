@@ -93,6 +93,7 @@ export default function Onboarding() {
             minLength={3}
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="dashboard_input"
           />
         </div>
         <div className="group files">
@@ -143,6 +144,7 @@ export default function Onboarding() {
               id="select_truck"
               onChange={(e) => setTruckNumber(e.target.value)}
               value={truckNumber}
+              className="dashboard_input"
             >
               {trucks?.map((truck) => (
                 <option value={truck.truck_number} key={truck.id}>

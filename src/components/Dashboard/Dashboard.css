@@ -25,11 +25,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 .activeTab{
     background-color: #1C9EB2;
     color: white;
+    transition: all ease-in 0.3s;
 }
 
 .inactiveTab{
@@ -44,8 +46,30 @@ table {
   }
   
   td, th {
-    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    border-radius: 10px;
+    padding-left: 10px;
+  }
+
+  .table_button_view{
+    padding: 7px 30px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #1C9EB2;
+    width: max-content;
+    height: max-content;
+    border: 1px solid #1C9EB2 ;
+    margin-right: 10px;
+  }
+  
+  .table_button_delete{
+    padding: 7px 30px;
+    border-radius: 8px;
+    background-color: rgb(210, 35, 35);
+    color: white;
+    width: max-content;
+    height: max-content;
+    border: 0;
   }
   

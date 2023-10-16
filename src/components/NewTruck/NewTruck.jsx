@@ -71,6 +71,7 @@ export default function NewTruck() {
             placeholder="Enter Make"
             value={make}
             onChange={(e) => setMake(e.target.value)}
+            className="dashboard_input"
           />
         </div>
         <div className="group">
@@ -81,6 +82,7 @@ export default function NewTruck() {
             placeholder="Enter Year"
             value={year}
             onChange={(e) => setYear(e.target.value)}
+            className="dashboard_input"
           />
         </div>
         <div className="group">
@@ -91,6 +93,7 @@ export default function NewTruck() {
             placeholder="Enter Model"
             value={model}
             onChange={(e) => setModel(e.target.value)}
+            className="dashboard_input"
           />
         </div>
         <div className="group">
@@ -101,6 +104,7 @@ export default function NewTruck() {
             placeholder="Enter Truck Number"
             value={truckNumber}
             onChange={(e) => setTruckNumber(e.target.value)}
+            className="dashboard_input"
           />
         </div>
         <div className="group files">

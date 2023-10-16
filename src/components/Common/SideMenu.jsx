@@ -22,7 +22,7 @@ export default function SideMenu({ close }) {
           onClick={() => {
             dispatch({ type: "LOGOUT" });
             history.push('/');
-          }}
+          }} className="table_button_view signout"
         >
           Sign Out
         </button>

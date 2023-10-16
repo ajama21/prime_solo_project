@@ -1,19 +1,22 @@
 .mission{
     text-align: center;
-    margin-left: 750px;
+    position: relative;
+    z-index: 20;
 }
 
 .statement{
     width: 400px;
     padding: 20px;
-    background-color: rgba(0,0,0, 0.3);
     font-size: 18px;
     line-height: 150%;
-    margin-left: 750px;
+    position: relative;
+    z-index: 20;
+    text-align: center;
 }
 
 .about_page{
     display: flex;
-    justify-content: left !important;
+    justify-content: center !important;
     color: white;
+    align-items: center;
 }
