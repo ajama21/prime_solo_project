@@ -10,10 +10,8 @@ export default function Onboarding() {
   const [name, setName] = useState("");
   const history = useHistory();
   const { search } = useLocation();
-  console.log(search, "this is what we are conosle logig");
 
   const trucks = useSelector((store) => store.unassignedtrucks);
-  console.log(trucks, "trucks in SELECT DROP DOWN");
 
   useEffect(() => {
     dispatch({ type: "FETCH_UNASSIGNED_TRUCKS" });

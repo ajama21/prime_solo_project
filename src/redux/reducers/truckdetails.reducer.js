@@ -3,12 +3,11 @@ const truckdetailsreducer = (state = null, action) => {
     case 'SET_CURRENT_TRUCK':
       return action.payload;
       case 'UNSET_CURRENT_TRUCK':
-        return [];
+        return null;
     default:
       return state;
   }
 };
-
 
 // user will be on the redux state at:
 // state.user
