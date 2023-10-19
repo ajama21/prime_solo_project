@@ -88,7 +88,7 @@ router.post("/", rejectUnauthenticated, (req, res, next) => {
       req.body.make,
       req.body.year,
       req.body.model,
-      "https://ftl.imgix.net/images/region/en-US/cabs/p4/126-bbc-48-xt.png?auto=format%2Ccompress&fm=jp2%2Cjpg&bg=d7d7d7",
+      req.body.truck_image_link,
       req.body.truck_number,
       req.user.id,
     ])
