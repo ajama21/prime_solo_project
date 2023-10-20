@@ -12,6 +12,7 @@ export default function NewTruck() {
   const [truckNumber, setTruckNumber] = useState("");
   const history = useHistory();
   const { search } = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const [imageFile, setImageFile] = useState(null);
 
@@ -30,6 +31,7 @@ export default function NewTruck() {
 
   const updateTruck = (e) => {
     e.preventDefault();
+    setLoading(true);
     const updatedTruck = {
       make,
       year,
@@ -40,6 +42,8 @@ export default function NewTruck() {
     };
     console.log(updatedTruck, "UPDAAAAATED DRIVER");
     dispatch({ type: "UPDATE_TRUCK_DETAILS", payload: updatedTruck });
+    setLoading(false);
+    window.alert('Truck updated successfully!')
     history.goBack();
   };
 
@@ -51,12 +55,19 @@ export default function NewTruck() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if(!make || !year || !model || !truckNumber || !imageFile){
+      window.alert('Please fill all required fields!');
+      return
+    }
+    setLoading(true);
     console.log("submit button clicked");
     const imageLink = await uploadOne(imageFile);
     dispatch({
       type: "ADD_TRUCK",
       payload: { make, year, model, truck_number: truckNumber, truck_image_link: imageLink },
     });
+    setLoading(false);
+    window.alert('Truck added successfully!');
     history.push("/dashboard?view=trucks");
   };
 
@@ -113,7 +124,7 @@ export default function NewTruck() {
             className="dashboard_input"
           />
         </div>
-        <div className="group files">
+        <div className="group files newTruckFile">
           <label htmlFor="image">Image</label>
           <input
             type="file"
@@ -136,9 +147,8 @@ export default function NewTruck() {
         <button
           className="sign_up"
           onClick={(e) => (search ? updateTruck(e) : submit(e))}
-          disabled={!make || !year || !model || !truckNumber}
         >
-          {search ? "Update Truck" : "Add New Truck"}
+          {loading ? "Loading..." : (search ? "Update Truck" : "Add New Truck")}
         </button>
       </form>
     </div>

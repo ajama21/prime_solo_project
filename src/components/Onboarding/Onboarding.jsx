@@ -11,6 +11,7 @@ export default function Onboarding() {
   const [name, setName] = useState("");
   const history = useHistory();
   const { search } = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const [applicationLinkFile, setApplicationLinkFile] = useState(null);
   const [driversLicesnseFile, setDriversLicenseFile] = useState(null);
@@ -46,6 +47,7 @@ export default function Onboarding() {
 
   const updateDriver = (e) => {
     e.preventDefault();
+    setLoading(true)
     const updatedDriver = {
       application_link: driverDetails.application_link,
       license_link: driverDetails.license_link,
@@ -56,13 +58,20 @@ export default function Onboarding() {
       truck_number: truckNumber,
       id: search.split("=")[1],
     };
-    console.log(updatedDriver, "UPDAAAAATED DRIVER");
     dispatch({ type: "UPDATE_DRIVER_DETAILS", payload: updatedDriver });
+    setLoading(false);
+    window.alert('Driver updated successfully!');
     history.goBack();
   };
 
   const addNewDriver = async (e) => {
     e.preventDefault();
+    // Validation check if we have all the data
+    if(!applicationLinkFile || !driversLicesnseFile || !dotFile || !policyFile || !questionnaireFile || !truckNumber || !name){
+      window.alert('Please fill all required fields!')
+      return
+    }
+    setLoading(true)
     console.log(truckNumber);
     // upload all files and get the links
     const applicationLinkLink = await uploadOne(applicationLinkFile);
@@ -84,6 +93,8 @@ export default function Onboarding() {
       type: "ADD_DRIVER",
       payload: driver,
     });
+    setLoading(false);
+    window.alert('Driver added successfully!')
     history.push("/dashboard?view=drivers");
   };
 
@@ -102,8 +113,6 @@ export default function Onboarding() {
             type="text"
             name="name"
             placeholder="Enter Driver Name"
-            required
-            minLength={3}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="dashboard_input"
@@ -265,7 +274,7 @@ export default function Onboarding() {
           onClick={(e) => (search ? updateDriver(e) : addNewDriver(e))}
           disabled={!truckNumber || !name}
         >
-          {search ? "Update" : "Onboard"}
+          {loading ? "Loading..." : (search ? "Update" : "Add Driver")}
         </button>
       </form>
     </div>
