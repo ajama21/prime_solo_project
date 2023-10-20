@@ -14,7 +14,7 @@ export default function TopNav() {
   return (
     <header>
       <Link to="/">
-        <img src="/192x192.png" alt="" height={60} width={60} className="image_logo"/>
+        <img src={location.pathname.includes('dashboard')?"/logo-blue.svg":"/logo.svg"} alt="" width={300} className="image_logo"/>
       </Link>
       {!location.pathname.includes('dashboard') && (
         <div className="topLinks">
