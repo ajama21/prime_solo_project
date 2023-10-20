@@ -3,6 +3,7 @@ import "./NewTruck.css";
 import TopNav from "../Common/TopNav";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { uploadOne } from "../Upload/Upload";
 
 export default function NewTruck() {
   const [make, setMake] = useState("");
@@ -12,6 +13,7 @@ export default function NewTruck() {
   const history = useHistory();
   const { search } = useLocation();
 
+  const [imageFile, setImageFile] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -19,10 +21,10 @@ export default function NewTruck() {
 
   useEffect(() => {
     if (search && truckDetails) {
-      setMake(truckDetails.make)
-      setModel(truckDetails.model)
-      setYear(truckDetails.year)
-      setTruckNumber(truckDetails.truck_number)
+      setMake(truckDetails.make);
+      setModel(truckDetails.model);
+      setYear(truckDetails.year);
+      setTruckNumber(truckDetails.truck_number);
     }
   }, [truckDetails, search]);
 
@@ -34,12 +36,12 @@ export default function NewTruck() {
       model,
       truck_image_link: truckDetails.truck_image_link,
       truck_number: truckNumber,
-      id: search.split("=")[1]
-    }
-    console.log(updatedTruck,'UPDAAAAATED DRIVER');
+      id: search.split("=")[1],
+    };
+    console.log(updatedTruck, "UPDAAAAATED DRIVER");
     dispatch({ type: "UPDATE_TRUCK_DETAILS", payload: updatedTruck });
-    history.goBack()
-  }
+    history.goBack();
+  };
 
   useEffect(() => {
     if (search) {
@@ -47,15 +49,19 @@ export default function NewTruck() {
     }
   }, [dispatch]);
 
-
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     console.log("submit button clicked");
+    const imageLink = await uploadOne(imageFile);
     dispatch({
       type: "ADD_TRUCK",
-      payload: { make, year, model, truck_number: truckNumber },
+      payload: { make, year, model, truck_number: truckNumber, truck_image_link: imageLink },
     });
-    history.push('/dashboard?view=trucks')
+    history.push("/dashboard?view=trucks");
+  };
+
+  const getPreviewObjectUrl = (file) => {
+    return URL.createObjectURL(file);
   };
 
   return (
@@ -114,7 +120,18 @@ export default function NewTruck() {
             name="image"
             placeholder="Add Image"
             accept="image/png, image/jpeg"
+            onChange={(e) => setImageFile(e.target.files[0])}
           />
+          {imageFile && (
+            <img src={getPreviewObjectUrl(imageFile)} width={100} height={100} />
+          )}
+          {imageFile && (
+            <div className="action_buttons">
+              <button onClick={(e) => [e.preventDefault(), setImageFile(null)]}>
+                Remove
+              </button>
+            </div>
+          )}
         </div>
         <button
           className="sign_up"

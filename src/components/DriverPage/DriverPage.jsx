@@ -34,8 +34,8 @@ export default function DriverPage() {
               }
               alt=""
             />
-            <h2>Name {driverDetails?.name}</h2>
-            <span>Assinged to Truck {driverDetails?.truck_number}</span>
+            <h2>Name: {driverDetails?.name}</h2>
+            <span>Assinged to Truck: {driverDetails?.truck_number}</span>
           </div>
         </div>
         <div className="driver_documents">

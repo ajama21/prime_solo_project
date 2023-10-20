@@ -3,6 +3,9 @@ import "./LandingPage.css";
 import TopNav from "../Common/TopNav";
 import { Link } from "react-router-dom";
 
+//look into making code flow symantically
+
+
 function LandingPage() {
   return (
 
@@ -17,11 +20,12 @@ function LandingPage() {
           <h1>“Navigate with Confidence. Fleet-Tracker in Your Hands!”</h1>
         </div>
         <div className="hero_buttons">
+          <p className="sign-up">Not registered? Sign up!</p>
           <Link className="hero_button register" to="/register">
-            Get Started
+            Sign up
           </Link>
           <Link className="hero_button login" to="/login">
-            Login
+            Log-in
           </Link>
         </div>
       </div>
@@ -30,3 +34,5 @@ function LandingPage() {
 }
 
 export default LandingPage;
+
+
