@@ -30,7 +30,7 @@ export default function DriverPage() {
               src={
                 driverDetails?.image_link
                   ? driverDetails?.image_link
-                  : "https://www.enverus.com/wp-content/uploads/2023/01/default-user-avatar.png"
+                  : "https://assets.website-files.com/5f70f0246e0318453837c2b9/645e490635327ca9b661bb47_becoming%20a%20truck%20driver.webp"
               }
               alt=""
             />

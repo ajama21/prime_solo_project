@@ -117,3 +117,7 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.update_button:hover{
+    transform: translateX(-50%);
+}

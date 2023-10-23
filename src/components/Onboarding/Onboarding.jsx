@@ -18,6 +18,7 @@ export default function Onboarding() {
   const [dotFile, setDotFile] = useState(null);
   const [questionnaireFile, setQuestionnaireFile] = useState(null);
   const [policyFile, setPolicyFile] = useState(null);
+  const [driverImage, setDriverImage] = useState(null);
 
   const trucks = useSelector((store) => store.unassignedtrucks);
 
@@ -57,6 +58,7 @@ export default function Onboarding() {
       name,
       truck_number: truckNumber,
       id: search.split("=")[1],
+      image_link: driverDetails.image_link
     };
     dispatch({ type: "UPDATE_DRIVER_DETAILS", payload: updatedDriver });
     setLoading(false);
@@ -67,7 +69,7 @@ export default function Onboarding() {
   const addNewDriver = async (e) => {
     e.preventDefault();
     // Validation check if we have all the data
-    if(!applicationLinkFile || !driversLicesnseFile || !dotFile || !policyFile || !questionnaireFile || !truckNumber || !name){
+    if(!applicationLinkFile || !driversLicesnseFile || !dotFile || !policyFile || !questionnaireFile || !truckNumber || !name || !driverImage){
       window.alert('Please fill all required fields!')
       return
     }
@@ -79,6 +81,7 @@ export default function Onboarding() {
     const dotLink = await uploadOne(dotFile);
     const policy_Link = await uploadOne(policyFile);
     const questionnaireLink = await uploadOne(questionnaireFile);
+    const driverImageLink = await uploadOne(driverImage);
     const driver = {
       truck_number: truckNumber,
       application_link: applicationLinkLink,
@@ -87,6 +90,7 @@ export default function Onboarding() {
       company_policy_link: policy_Link,
       drug_alcohol_link: questionnaireLink,
       name,
+      image_link: driverImageLink
     };
     console.log(driver);
     dispatch({
@@ -117,6 +121,36 @@ export default function Onboarding() {
             onChange={(e) => setName(e.target.value)}
             className="dashboard_input"
           />
+        </div>
+        <div className="group files">
+          <label htmlFor="application">Driver Image</label>
+          <input
+            type="file"
+            name="application"
+            placeholder="Enter Application Link"
+            accept="image/png, image/jpeg"
+            className="dashboard_input"
+            onChange={(e) => setDriverImage(e.target.files[0])}
+          />
+          {driverImage && (
+            <img
+              src={getPreviewObjectUrl(driverImage)}
+              width={100}
+              height={100}
+            />
+          )}
+          {driverImage && (
+            <div className="action_buttons">
+              <button
+                onClick={(e) => [
+                  e.preventDefault(),
+                  setDriverImage(null),
+                ]}
+              >
+                Remove
+              </button>
+            </div>
+          )}
         </div>
         <div className="group files">
           <label htmlFor="application">Application</label>

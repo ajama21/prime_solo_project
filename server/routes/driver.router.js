@@ -62,7 +62,7 @@ router.post("/onboard", (req, res, next) => {
       req.body.drug_alcohol_link,
       req.user.id,
       req.body.name,
-      "https://www.enverus.com/wp-content/uploads/2023/01/default-user-avatar.png",
+      req.body.image_link,
     ])
     .then((response) => {
       console.log("Driver created: ", response.rows[0]);
